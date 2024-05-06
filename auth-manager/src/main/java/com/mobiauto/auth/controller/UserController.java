@@ -6,11 +6,7 @@ import com.mobiauto.auth.dto.UserRequestDto;
 import com.mobiauto.auth.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.Optional;
 
 @RestController
 public class UserController implements UserApi {
@@ -33,8 +29,8 @@ public class UserController implements UserApi {
         return ResponseEntity.ok(user);
     }
 
-    public ResponseEntity<UserDto> getUserByUsername(final String username) {
-        UserDto user = userService.getUserByUsername(username);
+    public ResponseEntity<UserDto> getUserByEmail(final String email) {
+        UserDto user = userService.getUserByEmail(email);
         return ResponseEntity.ok(user);
     }
 

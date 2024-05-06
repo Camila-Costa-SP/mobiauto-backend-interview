@@ -4,6 +4,7 @@ import com.mobiauto.auth.config.JwtTokenProvider;
 import com.mobiauto.auth.dto.AuthResponseDto;
 import com.mobiauto.auth.dto.LoginDto;
 import com.mobiauto.auth.entity.UserEntity;
+import com.mobiauto.auth.enums.Roles;
 import com.mobiauto.auth.exceptions.InvalidEmailException;
 import com.mobiauto.auth.exceptions.InvalidPasswordException;
 import com.mobiauto.auth.repository.UserRepository;
@@ -33,9 +34,9 @@ public class AuthServiceImpl implements AuthService {
             throw new InvalidPasswordException();
         }
 
-        String token = jwtTokenProvider.createToken(user.getEmail(), user.getId(), user.getRole());
+        String token = jwtTokenProvider.createToken(user.getEmail(), user.getId(), user.getRole().name());
 
-        return new AuthResponseDto(token, user.getUsername(), user.getRole());
+        return new AuthResponseDto(token, user.getUsername(), Roles.fromString(user.getRole().name()));
 
     }
 }

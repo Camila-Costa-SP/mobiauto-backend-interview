@@ -15,8 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import java.util.Optional;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @RequestMapping("/users")
 public interface UserApi {
@@ -39,10 +38,10 @@ public interface UserApi {
     ResponseEntity<UserDto> getUser(@PathVariable Long userId);
 
 
-    @GetMapping("/users/by-username/{username}")
-    @PreAuthorize("hasAnyRole('ADMIN', 'OWNER', 'MANAGER')")
-    @Operation(summary = "Get a user by username")
-    ResponseEntity<UserDto> getUserByUsername(@PathVariable("username") String username);
+    @GetMapping()
+    @PreAuthorize("hasAnyRole('ADMIN', 'OWNER', 'MANAGER', 'ASSISTANT')")
+    @Operation(summary = "Get a user by email")
+    ResponseEntity<UserDto> getUserByEmail(@RequestParam("email") String email);
 
     @DeleteMapping("/{userId}")
     @PreAuthorize("hasRole('ADMIN')")
