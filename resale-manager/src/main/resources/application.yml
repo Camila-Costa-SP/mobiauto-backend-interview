@@ -1,0 +1,19 @@
+server:
+  port: 8300
+spring:
+  application:
+    name: resale-manager
+  datasource:
+    url: jdbc:postgresql://localhost:5432/mobiauto
+    username: user
+    password: password
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+jwt:
+  secret: ${JWT_SECRET:"MySecretKeyMySecretKeyMySecretKeyMySecret!}
