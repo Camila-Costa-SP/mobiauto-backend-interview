@@ -1,7 +1,6 @@
 rootProject.name = 'mobiauto-backend-interview'
 include 'auth-manager'
 include 'resale-manager'
-include 'user-manager'
 include 'opportunities-manager'
 include 'opportunity-handler'
 
