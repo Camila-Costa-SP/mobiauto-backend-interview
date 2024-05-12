@@ -34,7 +34,7 @@ public class AuthServiceImpl implements AuthService {
             throw new InvalidPasswordException();
         }
 
-        String token = jwtTokenProvider.createToken(user.getEmail(), user.getId(), user.getRole().name());
+        var token = jwtTokenProvider.createToken(user.getEmail(), user.getId(), user.getRole().name(), user.getResaleIds());
 
         return new AuthResponseDto(token, user.getUsername(), Roles.fromString(user.getRole().name()));
 

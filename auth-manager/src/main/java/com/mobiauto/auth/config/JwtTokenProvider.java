@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 
 import javax.crypto.SecretKey;
 import java.util.Date;
-
+import java.util.Set;
 
 @Component
 public class JwtTokenProvider {
@@ -32,10 +32,11 @@ public class JwtTokenProvider {
         this.key = Keys.hmacShaKeyFor(secretKey.getBytes());
     }
 
-    public String createToken(String username, Long userId, String role) {
+    public String createToken(String username, Long userId, String role, Set<Long> resaleIds) {
         Claims claims = Jwts.claims().setSubject(username);
         claims.put("userId", userId);
         claims.put("role", role);
+        claims.put("resales", resaleIds);
 
         Date now = new Date();
         Date validity = new Date(now.getTime() + validityInMilliseconds);

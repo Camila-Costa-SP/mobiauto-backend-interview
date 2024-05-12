@@ -6,7 +6,7 @@ import static java.util.Arrays.stream;
 
 public enum Roles {
 
-    ADMIN, MANAGER, ASSISTANT, SALES;
+    ADMIN, MANAGER, OWNER, ASSISTANT, SALES;
 
     public static Roles fromString(String roleStr) {
         return stream(Roles.values())

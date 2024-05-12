@@ -1,12 +1,14 @@
 package com.mobiauto.auth.controller;
-
 import com.mobiauto.auth.controller.spec.UserApi;
 import com.mobiauto.auth.dto.UserDto;
 import com.mobiauto.auth.dto.UserRequestDto;
+import com.mobiauto.auth.enums.Roles;
 import com.mobiauto.auth.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 @RestController
 public class UserController implements UserApi {
@@ -15,27 +17,26 @@ public class UserController implements UserApi {
     private UserService userService;
 
     public ResponseEntity<UserDto> createUser(final UserRequestDto userRequestDto) {
-        UserDto createdUser = userService.createUser(userRequestDto);
-        return ResponseEntity.ok(createdUser);
+        return ResponseEntity.ok(userService.createUser(userRequestDto));
     }
 
     public ResponseEntity<UserDto> updateUser(final Long userId, final UserRequestDto userRequest) {
-        UserDto updatedUser = userService.updateUser(userId, userRequest);
-        return ResponseEntity.ok(updatedUser);
+        return ResponseEntity.ok(userService.updateUser(userId, userRequest));
     }
 
     public ResponseEntity<UserDto> getUser(final Long userId) {
-        UserDto user = userService.getUserById(userId);
-        return ResponseEntity.ok(user);
+        return ResponseEntity.ok(userService.getUserById(userId));
     }
 
     public ResponseEntity<UserDto> getUserByEmail(final String email) {
-        UserDto user = userService.getUserByEmail(email);
-        return ResponseEntity.ok(user);
+        return ResponseEntity.ok(userService.getUserByEmail(email));
     }
 
     public ResponseEntity<Void> deleteUser(final Long userId) {
         userService.deleteUser(userId);
         return ResponseEntity.noContent().build();
+    }
+    public ResponseEntity<List<UserDto>> getUsersByRoleAndResale(final Roles role, final Long resaleId) {
+        return ResponseEntity.ok(userService.findByRoleAndResaleId(role, resaleId));
     }
 }

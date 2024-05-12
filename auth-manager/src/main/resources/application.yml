@@ -20,5 +20,6 @@ spring:
     baselineOnMigrate: true
     locations: classpath:db/migration
     schemas: auth
+
 jwt:
   secret: ${JWT_SECRET:"MySecretKeyMySecretKeyMySecretKeyMySecret!}

@@ -19,6 +19,7 @@ public class UserMapper {
         user.setEmail(userRequestDto.email());
         user.setPassword(passwordEncoder.encode(userRequestDto.password()));
         user.setRole(userRequestDto.role());
+        user.setResaleIds(userRequestDto.resaleIds());
         return user;
     }
 
@@ -27,12 +28,14 @@ public class UserMapper {
                 user.getId(),
                 user.getUsername(),
                 user.getEmail(),
-                user.getRole());
+                user.getRole(),
+                user.getResaleIds());
     }
 
     public void updateUserEntity(UserRequestDto userRequest, UserEntity userEntity) {
         userEntity.setUsername(userRequest.username());
         userEntity.setEmail(userRequest.email());
         userEntity.setRole(userRequest.role());
+        userEntity.setResaleIds(userRequest.resaleIds());
     }
 }
