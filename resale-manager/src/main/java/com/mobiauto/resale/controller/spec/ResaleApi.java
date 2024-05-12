@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 @RequestMapping("/resales")
 public interface ResaleApi {
 
-    @PostMapping("/")
+    @PostMapping
     @PreAuthorize("hasAnyRole('ADMIN', 'OWNER', 'MANAGER')")
     @Operation(summary = "Create a new resale", description = "Creates a new resale and returns the created object.")
     @ApiResponse(responseCode = "201", description = "Resale created successfully",

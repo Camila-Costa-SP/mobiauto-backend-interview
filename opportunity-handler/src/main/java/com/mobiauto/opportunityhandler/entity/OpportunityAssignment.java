@@ -14,7 +14,7 @@ import lombok.Data;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "opportunity_assignments")
+@Table(name = "opportunity_assignments", schema =  "opportunities-handler")
 @Data
 public class OpportunityAssignment {
     @Id

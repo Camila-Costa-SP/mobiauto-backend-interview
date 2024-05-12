@@ -3,4 +3,3 @@ include 'auth-manager'
 include 'resale-manager'
 include 'opportunities-manager'
 include 'opportunity-handler'
-

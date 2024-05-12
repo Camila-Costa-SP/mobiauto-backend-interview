@@ -29,10 +29,6 @@ public class OpportunityController implements OpportunityApi {
         return ResponseEntity.ok(opportunityService.updateOpportunity(id, opportunity));
     }
 
-    public ResponseEntity<List<OpportunityDTO>> getAllOpportunities() {
-        return ResponseEntity.ok(opportunityService.getAllOpportunities());
-    }
-
     public ResponseEntity<OpportunityDTO> updateOpportunityStatus(final Long id, final String status) {
         return ResponseEntity.ok(opportunityService.updateOpportunityStatus(id, status));
     }

@@ -12,7 +12,5 @@ public interface OpportunityService {
 
     OpportunityDTO updateOpportunity(Long id, OpportunityRequestDTO opportunity);
 
-    List<OpportunityDTO> getAllOpportunities();
-
     OpportunityDTO updateOpportunityStatus(Long id, String status);
 }

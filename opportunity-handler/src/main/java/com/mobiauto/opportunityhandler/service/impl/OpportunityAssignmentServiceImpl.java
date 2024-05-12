@@ -23,14 +23,6 @@ public class OpportunityAssignmentServiceImpl implements OpportunityAssignmentSe
     @Autowired
     private OpportunityAssignmentMapper mapper;
 
-    @Transactional
-    public OpportunityAssignmentDTO createAssignment(OpportunityAssignmentRequestDTO requestDTO) {
-        OpportunityAssignment assignment = mapper.toEntity(requestDTO);
-        assignment.setAssignedDate(LocalDateTime.now());
-        repository.save(assignment);
-        return mapper.toDto(assignment);
-    }
-
     public OpportunityAssignmentDTO getAssignment(Long id) {
         OpportunityAssignment assignment = getOpportunityAssignment(id);
         return mapper.toDto(assignment);
@@ -43,11 +35,6 @@ public class OpportunityAssignmentServiceImpl implements OpportunityAssignmentSe
         assignment.setCompletionDate(LocalDateTime.now());
         repository.save(assignment);
         return mapper.toDto(assignment);
-    }
-
-    public void deleteAssignment(Long id) {
-        getOpportunityAssignment(id);
-        repository.deleteById(id);
     }
 
     public List<OpportunityAssignmentDTO> listAllAssignments() {

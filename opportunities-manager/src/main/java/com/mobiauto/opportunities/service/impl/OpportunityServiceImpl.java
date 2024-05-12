@@ -1,6 +1,8 @@
 package com.mobiauto.opportunities.service.impl;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mobiauto.opportunities.dto.OpportunityDTO;
+import com.mobiauto.opportunities.dto.OpportunityMessageDTO;
 import com.mobiauto.opportunities.dto.OpportunityRequestDTO;
 import com.mobiauto.opportunities.entity.Client;
 import com.mobiauto.opportunities.entity.Opportunity;
@@ -14,6 +16,7 @@ import com.mobiauto.opportunities.repository.ClientRepository;
 import com.mobiauto.opportunities.repository.OpportunityRepository;
 import com.mobiauto.opportunities.repository.ProductInterestRepository;
 import com.mobiauto.opportunities.service.OpportunityService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,6 +26,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@Slf4j
 public class OpportunityServiceImpl implements OpportunityService {
     @Autowired
     private OpportunityRepository opportunityRepository;
@@ -33,6 +37,9 @@ public class OpportunityServiceImpl implements OpportunityService {
     @Autowired
     private OpportunityMapper opportunityMapper;
 
+    @Autowired
+    private SqsMessageSender sqsMessageSender;
+
     @Transactional
     public OpportunityDTO createOpportunity(final OpportunityRequestDTO request) {
         var client = findClient(request);
@@ -41,8 +48,27 @@ public class OpportunityServiceImpl implements OpportunityService {
 
         var opportunity = new Opportunity();
         setOpportunity(request, opportunity, client, productInterest);
+        opportunity.setCreationDate(LocalDateTime.now());
 
         opportunityRepository.save(opportunity);
+
+        ObjectMapper objectMapper = new ObjectMapper();
+
+        OpportunityMessageDTO message = new OpportunityMessageDTO(
+                opportunity.getId(),
+                client.getId(),
+                productInterest.getId(),
+                opportunity.getStatus(),
+                opportunity.getResaleId()
+        );
+
+        try {
+            String messageBody = objectMapper.writeValueAsString(message);
+            sqsMessageSender.sendMessage(messageBody);
+        } catch (Exception e) {
+            log.error("Error serializing or sending message opportunity: {} ", e.getMessage());
+        }
+
         return opportunityMapper.toOpportunityDTO(opportunity);
     }
 
@@ -60,14 +86,10 @@ public class OpportunityServiceImpl implements OpportunityService {
         var productInterest = findProductInterest(request);
 
         setOpportunity(request, opportunity, client, productInterest);
+        opportunity.setUpdateDate(LocalDateTime.now());
 
         opportunityRepository.save(opportunity);
         return opportunityMapper.toOpportunityDTO(opportunity);
-    }
-
-    public List<OpportunityDTO> getAllOpportunities() {
-        var opportunities = opportunityRepository.findAll();
-        return opportunities.stream().map(opportunityMapper::toOpportunityDTO).collect(Collectors.toList());
     }
 
     @Transactional
@@ -98,12 +120,13 @@ public class OpportunityServiceImpl implements OpportunityService {
     }
 
     private static void setOpportunity(final OpportunityRequestDTO request,
-                                       Opportunity opportunity,
-                                       Client client,
-                                       ProductInterest productInterest) {
+                                       final Opportunity opportunity,
+                                       final Client client,
+                                       final ProductInterest productInterest) {
         opportunity.setClient(client);
         opportunity.setProductInterest(productInterest);
         opportunity.setStatus(request.status());
-        opportunity.setUpdateDate(LocalDateTime.now());
+        opportunity.setResaleId(request.resaleId());
+
     }
 }

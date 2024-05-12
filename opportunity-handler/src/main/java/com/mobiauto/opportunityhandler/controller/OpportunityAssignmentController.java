@@ -16,10 +16,6 @@ public class OpportunityAssignmentController implements OpportunityAssignmentApi
     @Autowired
     private OpportunityAssignmentService service;
 
-    public ResponseEntity<OpportunityAssignmentDTO> createAssignment(final OpportunityAssignmentRequestDTO requestDTO) {
-        return ResponseEntity.ok( service.createAssignment(requestDTO));
-    }
-
     public ResponseEntity<OpportunityAssignmentDTO> getAssignment(final Long id) {
         return ResponseEntity.ok(service.getAssignment(id));
     }
@@ -27,11 +23,6 @@ public class OpportunityAssignmentController implements OpportunityAssignmentApi
     public ResponseEntity<OpportunityAssignmentDTO> updateAssignment(final Long id,
                                                                      final OpportunityAssignmentRequestDTO requestDTO) {
         return ResponseEntity.ok( service.updateAssignment(id, requestDTO));
-    }
-
-    public ResponseEntity<Void> deleteAssignment(final Long id) {
-        service.deleteAssignment(id);
-        return ResponseEntity.noContent().build();
     }
 
     public ResponseEntity<List<OpportunityAssignmentDTO>> listAllAssignments() {

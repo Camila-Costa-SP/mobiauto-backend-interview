@@ -15,5 +15,11 @@ spring:
     properties:
       hibernate:
         format_sql: true
+
+  flyway:
+    enabled: true
+    schemas: opportunities-handler
+    baselineOnMigrate: true
+    locations: classpath:db/migration
 jwt:
   secret: ${JWT_SECRET:"MySecretKeyMySecretKeyMySecretKeyMySecret!}

@@ -1,4 +1,18 @@
 services:
+  localstack:
+    container_name: aws_sqs
+    hostname: sqs
+    image: localstack/localstack:latest
+    environment:
+      - AWS_DEFAULT_REGION=us-east-1
+      - EDGE_PORT=4566
+      - SERVICES=sqs
+    ports:
+      - '4566:4566'
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock"
+      - ./create_queue.sh:/etc/localstack/init/ready.d/script.sh
+
   postgres:
     image: postgres:latest
     environment:

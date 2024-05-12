@@ -9,5 +9,6 @@ public record OpportunityDTO(
         ProductInterestDTO productInterest,
         String status,
         LocalDateTime creationDate,
-        LocalDateTime updateDate
+        LocalDateTime updateDate,
+        Long resaleId
 ) {}

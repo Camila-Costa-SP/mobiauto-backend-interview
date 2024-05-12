@@ -3,7 +3,7 @@ package com.mobiauto.opportunityhandler.enums;
 import java.util.Arrays;
 
 public enum OpportunityStatus {
-    ASSIGNED;
+    ASSIGNED, IN_PROGRESS;
 
     public static OpportunityStatus fromString(String status) {
         return Arrays.stream(OpportunityStatus.values())
