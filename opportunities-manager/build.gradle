@@ -19,7 +19,7 @@ test {
 }
 
 bootJar {
-    archiveFileName = 'opportunities-manager-0.0.1-SNAPSHOT.jar'
+    enabled = false
 }
 
 jar {

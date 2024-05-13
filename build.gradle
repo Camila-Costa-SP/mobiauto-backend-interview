@@ -23,6 +23,7 @@ allprojects {
 
 	repositories {
 		mavenCentral()
+		maven { url 'https://repo.spring.io/milestone' }
 	}
 
 
@@ -39,7 +40,6 @@ allprojects {
 		implementation 'org.springframework.boot:spring-boot-starter-validation'
 		implementation 'org.springframework.boot:spring-boot-starter-web'
 		implementation 'org.springframework.boot:spring-boot-starter-oauth2-resource-server'
-		implementation 'org.springdoc:springdoc-openapi-ui:1.6.9'
 		implementation 'io.jsonwebtoken:jjwt-api:0.11.5'
 		implementation 'org.mapstruct:mapstruct:1.5.2.Final'
 		implementation 'org.flywaydb:flyway-core'
@@ -54,6 +54,10 @@ allprojects {
 		annotationProcessor 'org.mapstruct:mapstruct-processor:1.5.2.Final'
 		testImplementation("org.springframework.boot:spring-boot-starter-test")
 		testImplementation("org.springframework.security:spring-security-test")
+
+
+
+		implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.5.0'
 
 	}
 

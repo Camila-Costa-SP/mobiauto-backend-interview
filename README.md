@@ -32,8 +32,8 @@ Gerencia as informações de revendas.
 Responsável por atribuir oportunidades a usuários específicos dentro do sistema.
 
 #### Principais Funcionalidades:
-    * Atribuição de oportunidades.
-    * Consulta de atribuições por usuário.
+    * Atribuição automática de oportunidades aos assistentes de vendas com base na carga de trabalho e tempo desde a última atribuição.
+    * Uso de fila SQS para gerenciamento assíncrono de atribuições.
 
   ### Tecnologias Utilizadas:
   * Spring Boot: Framework principal para criação de microsserviços.
@@ -48,7 +48,7 @@ Responsável por atribuir oportunidades a usuários específicos dentro do siste
 - Java 17
 - Docker e Docker Compose
 - Client REST para testes de API (ex: Postman)
--  Intellij
+- Intellij
 
 ## Configuração Inicial
 
@@ -57,20 +57,13 @@ Para construir o projeto, execute o seguinte comando na raiz do projeto:
        ./gradlew clean build 
        docker-compose up
 
-Ao construir e executar o projeto, um usuário administrador será automaticamente criado:     
+## Testando a API
 
-             "email": "admin@example.com",
-             "password": "password123"
+A  API pode ser testada via Postman WEB, que pode ser acessada navegando para:
 
-## Documentação da API
-
-A documentação da API está disponível via Swagger UI, que pode ser acessada navegando para:
-
-http://localhost:8080/swagger-ui.html
+https://www.postman.com/mobiauto-backend-interview/workspace/mobiauto-backend-interview/collection/34652197-2bcafe23-7447-44c5-bac9-29a8efbb05d7
 
 
 ## Problemas Conhecidos
-
- * A distribuição automática de oportunidades ainda não está implementada.
 
  * Não existem testes unitários para os componentes principais.
